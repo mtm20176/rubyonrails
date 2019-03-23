@@ -1,0 +1,67 @@
+<% if false %>
+
+02/10/19 added Bootstrap alerting and logic to check for single alert or an array, and therefore needing bullets in LI or not; also made text HTML safe; tweaked Bootstrap grid
+
+<% end %>
+
+<messages>
+
+<div class="container">
+
+<div class="row">
+
+<div class="col">
+
+</div>
+
+<div class="col-5">
+
+<div id="messages">
+
+<% flash.each do |key,value| %>
+
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span></button>	
+
+<ul id="messages_ul"
+
+	<% if value.kind_of?(Array) %>
+
+			>
+
+	 	<% value.each do |e| %>
+
+			<li>
+		    <%=e.html_safe %>
+		    </li>
+		 <%	end %>
+
+	<% else %>
+
+		class="list-unstyled">
+
+		<li>
+		<%= value.html_safe %>
+		</li>
+
+	 <%	end %>
+
+</ul>
+</div>
+
+<% end %>
+
+</div>
+
+</div>
+
+<div class="col">
+
+</div>
+
+</div>
+
+</div>
+
+</messages>
+       

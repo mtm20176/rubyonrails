@@ -1,0 +1,28 @@
+<% if false %>
+
+03/23/19
+
+<% end %>
+
+<!doctype html>
+<html lang="en">
+
+<head>
+  <%= render "shared/header" %>
+  <%= yield :head %>  
+</head>
+
+<body class="<%= params[:controller] %>">
+
+<%= yield :top%>
+
+<%= render 'shared/messages' %>
+
+<%= yield :content%>
+
+<%= yield :bottom%>
+
+<%= render "shared/footer" %>
+
+</body>
+</html>

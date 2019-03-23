@@ -1,0 +1,18 @@
+<% content_for :content do %>
+
+<h1>Post Detail</h1>
+<p><%= link_to 'All Posts', posts_path %></p>
+
+
+
+<p>
+  <strong>Title:</strong>
+  <%= @post.title %>
+</p>
+ 
+<p>
+  <strong>Text:</strong>
+  <%= @post.text %>
+</p>
+
+<% end %>

@@ -1,0 +1,37 @@
+<% if false %>
+
+Devise SESSION (Sign In) erb
+
+<% end %>
+
+<div class="card">
+<div class="card-body m-3">
+
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="field">
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", :placeholder => "Email address", :type => "email", :class => "form-control mt-10 mb-3" %>
+  </div>
+
+  <div class="field">
+    <%= f.password_field :password, autocomplete: "current-password", :placeholder => "Password", :type => "password", :class => "form-control my-3" %>
+  </div>
+
+  <% if devise_mapping.rememberable? -%>
+    <div class="field">
+      <%= f.check_box :remember_me, :class => "mt-2" %>
+      <%= f.label :remember_me, :class => "mb-2" %>
+    </div>
+  <% end -%>
+
+  <div class="actions text-center mt-2">
+    <%= f.submit "Log in", :class=>"btn btn-outline-secondary btn-block" %>
+  </div>
+<% end %>
+
+</div>
+
+<div class="card-footer text-muted">
+Haven't joined yet?<%= link_to "Sign Up", new_user_registration_path, :class=>"btn btn-outline-primary ml-2"  %>
+</div>
+
+</div>

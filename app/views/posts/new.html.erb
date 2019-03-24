@@ -1,23 +1,50 @@
 <% content_for :content do %>
 
-<h1>New Post</h1>
-<p><%= link_to 'All Posts', posts_path %></p>
+<div class="row"> 
 
+<div class="col">
+
+</div>
+
+<div class="col-12 col-md-6">
+
+<h1>New Post</h1>
 
 <%= form_with scope: :post, url: posts_path, local: true do |form| %>
+
+<div class="card">
+<div class="card-body m-3">
+
+
   <p>
     <%= form.label :title %><br>
-    <%= form.text_field :title %>
+    <%= form.text_field :title, :placeholder => "Title of Post", :class => "form-control", :autofocus => true %>
   </p>
  
   <p>
     <%= form.label :text %><br>
-    <%= form.text_area :text %>
+    <%= form.text_area :text, :placeholder => "More info about Post", :class => "form-control", :rows => 4  %>
   </p>
- 
-  <p>
-    <%= form.submit %>
-  </p>
+
+</div>
+
+
+<div class="card-footer text-muted">
+<%= link_to 'All Posts', posts_path, :class => "align-middle" %>
+<%= form.submit "Save", :class=>"btn btn-outline-secondary float-right" %>
+</div>
+
+
+</div>
+
 <% end %>
+
+</div>
+
+<div class="col">
+
+</div>
+
+</div>
 
 <% end %>

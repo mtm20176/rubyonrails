@@ -1,23 +1,75 @@
 <% content_for :content do %>
 
+<div class="row"> 
+
+<div class="col">
+
+</div>
+
+<div class="col-12 col-md-10">
+
 <h1>All Posts</h1>
-<p>(sorted by date created) <%= link_to 'New', new_post_path %></p>
+<p>(sorted by <%= link_to "Date Created", posts_path(sort: "created_at") %> OR <%= link_to "User", posts_path(sort: "email") %>) <%= link_to 'New', new_post_path %> | 
+  <%= link_to "Download", posts_export_posts_path(format: "csv") %> |
+      <% if user_signed_in? %>
+<%= link_to 'Logout (' + current_user.email.split("@").first.to_s + ')', destroy_user_session_path, method: :delete %>
+      <% else %>
+<%= link_to 'Login', new_user_session_path %>
+      <% end %>
+</p>
 
 
-<table class="all_table">
+<table class="table table-sm table-hover all_table">
+  <thead>
   <tr class="all_table_heading">
     <th>Title</th>
     <th>Text</th>
-    <th></th>
+    <th>Email</th>    
+    <th>Created</th>     
+    <th>
+    </th>
+  </thead>
   </tr>
  
+
+  <tbody>
   <% @posts.each do |post| %>
+
+  <% 
+
+  @username = post.email.split("@").first
+
+  %>
     <tr>
-      <td><%= post.title %></td>
-      <td><%= post.text %></td>
-      <td><%= link_to 'Show', post_path(post) %></td>
+      <td><div class="text-truncate" style="max-width: 300px;"><%= post.title %></div></td>
+      <td><div class="text-truncate" style="max-width: 250px;"><%= post.text %></div></td>
+      <td><div class="text-truncate" style="max-width: 100px;"><%= @username %></div></td>
+      <td><div class="text-truncate" style="max-width: 100px;"><%= post.created_at.strftime("%-m/%-d/%y") %></div></td>             
+      <td>
+      
+        <%= link_to 'Show', post_path(post) %>
+      
+        <% if user_signed_in? && post.user_id == current_user.id %>
+        | 
+          <%= link_to 'Edit', edit_post_path(post) %>
+        <% end %>    
+
+      </td>
     </tr>
   <% end %>
+  </tbody>
 </table>
+
+<p></p>
+<%= will_paginate @posts %>
+
+
+</div>
+
+<div class="col">
+
+</div>
+
+</div>
 
 <% end %>

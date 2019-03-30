@@ -1,3 +1,12 @@
+=begin
+
+Copyright (C) Mark Milligan - All Rights Reserved
+Unauthorized copying of this file, via any medium is strictly prohibited
+Proprietary and confidential
+Written by Mark Milligan <markmilligan@me.com>, 2019
+
+=end
+
 class PostsController < ApplicationController
 
 	before_action :authenticate_user!, :except => [:show, :index, :export_posts]
@@ -60,7 +69,7 @@ class PostsController < ApplicationController
 
 	def export_posts  
 
-		@posts = Post.all.user.select("title, text, email, posts.created_at").order(created_at: :desc)
+		@posts = Post.all.user.select("posts.cached_votes_total, title, text, email, posts.created_at").order("cached_votes_total desc, posts.created_at desc")
 
 		respond_to do |format|
 			format.csv { send_data @posts.to_csv }
@@ -69,17 +78,47 @@ class PostsController < ApplicationController
 	end
 
 
+	def upvote
+
+	  	@post_id = params[:id].to_s
+		@post = Post.find(params[:id])
+	  	@user = current_user
+
+		if @post.upvote_from @user
+			redirect_to action: "index"
+		else
+
+		end
+
+	end
+
+	def unvote
+
+	  	@post_id = params[:id].to_s
+		@post = Post.find(params[:id])
+	  	@user = current_user
+
+		if @post.unliked_by @user	
+			redirect_to action: "index"
+		  
+		else
+		  
+		end
+
+	end
 
 	def index
 
-		@posts = Post.all.user.select("posts.id, posts.user_id, title, text, users.email, posts.created_at")
+		@posts = Post.all.user.select("posts.id, posts.user_id, title, text, users.email, posts.created_at, posts.cached_votes_total")
 
 		if params[:sort] == "created_at" 
 			@posts = @posts.order("posts.created_at desc")
 		elsif params[:sort] == "email"
 			@posts = @posts.order("users.email asc")
+		elsif params[:sort] == "votes"
+			@posts = @posts.order("posts.cached_votes_total desc, posts.created_at desc")			
 		else
-			@posts = @posts.order(created_at: :desc)
+			@posts = @posts.order("posts.cached_votes_total desc, posts.created_at desc")
 		end
 
 		@posts = @posts.paginate(:page => params[:page], :per_page => 12) 

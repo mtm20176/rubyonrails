@@ -1,4 +1,15 @@
+=begin
+
+Copyright (C) Mark Milligan - All Rights Reserved
+Unauthorized copying of this file, via any medium is strictly prohibited
+Proprietary and confidential
+Written by Mark Milligan <markmilligan@me.com>, 2019
+
+=end
+
 class Post < ApplicationRecord
+
+  acts_as_votable
 
 
   validates :title, length: { minimum:15, :maximum => 255 }
@@ -13,7 +24,7 @@ class Post < ApplicationRecord
     CSV.generate(force_quotes: true) do |csv|
       #csv << column_names
       all.each do |postrow|
-        csv << postrow.attributes.values_at(*["title","text","email","created_at"])
+        csv << postrow.attributes.values_at(*["cached_votes_total","email","created_at","title","text"])
       end
     end
   end

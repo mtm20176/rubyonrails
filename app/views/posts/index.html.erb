@@ -1,3 +1,12 @@
+<% if false %>
+
+Copyright (C) Mark Milligan - All Rights Reserved
+Unauthorized copying of this file, via any medium is strictly prohibited
+Proprietary and confidential
+Written by Mark Milligan <markmilligan@me.com>, 2019
+
+<% end %>
+
 <% content_for :content do %>
 
 <div class="row"> 
@@ -9,8 +18,9 @@
 <div class="col-12 col-md-10">
 
 <h1>All Posts</h1>
-<p>(sorted by <%= link_to "Date Created", posts_path(sort: "created_at") %> OR <%= link_to "User", posts_path(sort: "email") %>) <%= link_to 'New', new_post_path %> | 
+<p>(sorted by <%= link_to "Votes", posts_path(sort: "votes") %> OR <%= link_to "Date Created", posts_path(sort: "created_at") %> OR <%= link_to "User", posts_path(sort: "email") %>) <%= link_to 'New', new_post_path %> | 
   <%= link_to "Download", posts_export_posts_path(format: "csv") %> |
+  <%= link_to "About", home_index_path %> |
       <% if user_signed_in? %>
 <%= link_to 'Logout (' + current_user.email.split("@").first.to_s + ')', destroy_user_session_path, method: :delete %>
       <% else %>
@@ -22,11 +32,14 @@
 <table class="table table-sm table-hover all_table">
   <thead>
   <tr class="all_table_heading">
+    <th></th>    
+    <th></th>
     <th>Title</th>
-    <th>Text</th>
+    <th>Text <span class="font-weight-normal small">(click rows for detail)</span></th>
     <th>Email</th>    
     <th>Created</th>     
-    <th>
+    <th class="text-center">
+      <span class="oi oi-wrench" title="Thumbs Up" aria-hidden="true"></span> 
     </th>
   </thead>
   </tr>
@@ -40,9 +53,42 @@
   @username = post.email.split("@").first
 
   %>
-    <tr>
-      <td><div class="text-truncate" style="max-width: 300px;"><%= post.title %></div></td>
-      <td><div class="text-truncate" style="max-width: 250px;"><%= post.text %></div></td>
+    <tr class="">
+      
+      <td>
+        <%= post.get_upvotes.size %>
+      </td>
+      <td class="voter">
+
+<% if user_signed_in? %>
+
+<% if current_user.voted_for? post %>
+
+<%= link_to "<span class=\"oi oi-action-undo\" aria-hidden=\"true\"></span>".html_safe, posts_unvote_path(:id=>post.id), :title=>"Cancel your vote for this post"%>
+
+<% else %>
+
+<%= link_to "<span class=\"oi oi-thumb-up\" aria-hidden=\"true\"></span>".html_safe, posts_upvote_path(:id=>post.id), :title=>"Upvote this post" %>
+
+<% end %>
+
+
+
+<% if false %>
+
+<%= link_to "<span class=\"oi oi-action-undo\" aria-hidden=\"true\"></span>".html_safe, '#', :onclick => "unVote(\"" + post.id.to_s + "\"); return false", :title=>"Cancel this vote", :id=>post.id %>
+
+<%= link_to "<span class=\"oi oi-thumb-up\" aria-hidden=\"true\"></span>".html_safe, '#', :onclick => "upVote(\"" + post.id.to_s + "\"); return false", :title=>"Upvote this post", :id=>post.id %>
+
+<%= link_to "<span class=\"oi oi-thumb-down\" aria-hidden=\"true\"></span>".html_safe, '#', :onclick => "downVote(\"" + post.id.to_s + "\"); return false", :title=>"Downvote this post" %>
+
+<% end %>
+
+<% end %>
+
+       </td>
+      <td id="ptitle"><div class="text-truncate" style="max-width: 300px;" data-title="<%= post.title %>"><%= post.title %></div></td>
+      <td><div class="text-truncate" style="max-width: 250px;" data-text="<%= post.text %>"><%= post.text %></div></td>
       <td><div class="text-truncate" style="max-width: 100px;"><%= @username %></div></td>
       <td><div class="text-truncate" style="max-width: 100px;"><%= post.created_at.strftime("%-m/%-d/%y") %></div></td>             
       <td>
@@ -71,5 +117,11 @@
 </div>
 
 </div>
+
+<% end %>
+
+<% content_for :bottom do %>
+
+  <%= render "posts/posttext" %>
 
 <% end %>

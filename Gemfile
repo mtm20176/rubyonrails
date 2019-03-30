@@ -1,3 +1,12 @@
+=begin
+
+Copyright (C) Mark Milligan - All Rights Reserved
+Unauthorized copying of this file, via any medium is strictly prohibited
+Proprietary and confidential
+Written by Mark Milligan <markmilligan@me.com>, 2019
+
+=end
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -36,6 +45,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'devise'
 
 gem 'will_paginate'
+
+gem 'acts_as_votable', '~> 0.12.0'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false

@@ -98,7 +98,7 @@ class PostsController < ApplicationController
 		@post = Post.find(params[:id])
 	  	@user = current_user
 
-		if @post.unliked_by @user	
+		if @post.unliked_by @user
 			redirect_to action: "index"
 		  
 		else
@@ -109,12 +109,14 @@ class PostsController < ApplicationController
 
 	def index
 
-		@posts = Post.all.user.select("posts.id, posts.user_id, title, text, users.email, posts.created_at, posts.cached_votes_total")
+		@posts = Post.all.user.select("posts.id, posts.user_id, title, text, product, users.email, posts.created_at, posts.cached_votes_total")
 
 		if params[:sort] == "created_at" 
 			@posts = @posts.order("posts.created_at desc")
 		elsif params[:sort] == "email"
 			@posts = @posts.order("users.email asc")
+		elsif params[:sort] == "product"
+			@posts = @posts.order("posts.product asc")			
 		elsif params[:sort] == "votes"
 			@posts = @posts.order("posts.cached_votes_total desc, posts.created_at desc")			
 		else
@@ -132,7 +134,7 @@ class PostsController < ApplicationController
 private
 
 	def post_params
-		params.require(:post).permit(:title, :text)
+		params.require(:post).permit(:title, :text, :product)
 	end
 
 	def makeflash

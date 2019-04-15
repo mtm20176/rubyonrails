@@ -18,7 +18,7 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
 <div class="col-12 col-md-6">
 
 <h1>Edit Post Detail</h1>
-<p><%= link_to 'All Posts', posts_path %></p>
+<p><%= link_to 'All Feedback Posts', posts_path %></p>
 
 
 <%= form_with model: @post, local: true do |form| %>
@@ -31,6 +31,14 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
     <%= form.label :text %><br>
     <%= form.text_area :text, :placeholder => "More info about Post", :class => "form-control", :rows => 4  %>
   </p>
+
+  <p>
+    <%= form.label :product %><br>
+    <% if false %>
+    <%= form.text_field :product, :placeholder => "Product Area", :class => "typeahead form-control", autocomplete: 'off' %>
+    <% end %>
+    <%= form.select :product, :options_for_select => ([["Darwin","Darwin"],["DeepNLP","DeepNLP"],["SparkPredict","SparkPredict"],["DeepArmor","DeepArmor"]]), {}, {:class => "form-control"} %>
+  </p>   
  
   <p>
     <%= form.submit "Save", :class=>"btn btn-outline-secondary " %>

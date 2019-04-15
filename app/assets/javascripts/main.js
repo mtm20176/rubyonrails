@@ -43,6 +43,55 @@ function openPostTextModal() {
 
 }
 
+function productAC() {
+
+var substringMatcher = function(strs) {
+  return function findMatches(q, cb) {
+    var matches, substringRegex;
+
+    // an array that will be populated with substring matches
+    matches = [];
+
+    // regex used to determine if a string contains the substring `q`
+    substrRegex = new RegExp(q, 'i');
+
+    // iterate through the pool of strings and for any string that
+    // contains the substring `q`, add it to the `matches` array
+    $.each(strs, function(i, str) {
+      if (substrRegex.test(str)) {
+        matches.push(str);
+      }
+    });
+
+    cb(matches);
+  };
+};
+
+var products = ['Darwin','DeepNLP','SparkPredict','DeepArmor'];
+
+
+$('.typeahead').typeahead({
+ minLength: 0,
+ hint: true,
+ highlight: true
+}, {
+    name: 'products',
+    source: substringMatcher(products)   
+}
+
+
+);
+
+
+$('.typeahead').bind('typeahead:select', function(ev, suggestion, data_set) {
+
+         console.log('typeahead selection: ' + suggestion.name);
+
+});
+
+};
+
+
 // deprecated for Rails FPR
 function upVote(id) {
 
@@ -94,6 +143,9 @@ $(document).ready(function() {
     //console.log( "Ranker ready!" );
 
     openPostTextModal();
+
+    // deactivated typeahead for product feature
+    //productAC();
 
 
 });

@@ -17,14 +17,14 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
 
 <div class="col-12 col-md-10">
 
-<h1>All Posts</h1>
-<p>(sorted by <%= link_to "Votes", posts_path(sort: "votes") %> OR <%= link_to "Date Created", posts_path(sort: "created_at") %> OR <%= link_to "User", posts_path(sort: "email") %>) <%= link_to 'New', new_post_path %> | 
-  <%= link_to "Download", posts_export_posts_path(format: "csv") %> |
-  <%= link_to "About", home_index_path %> |
+<h4>Product Field Feedback</h4>
+<p>(sorted by <%= link_to "Votes", posts_path(sort: "votes"), :title=>"Sort by most Upvotes" %> OR <%= link_to "Date Created", posts_path(sort: "created_at"), :title=>"Sort by the latest feedback added"  %> OR <%= link_to "User", posts_path(sort: "email"), :title=>"Sort by user creating the feedback (A-Z)"  %>) <%= link_to 'New', new_post_path, :title=>"Create new feedback"  %> | 
+  <%= link_to "Download", posts_export_posts_path(format: "csv"), :title=>"Download all feedback as a csv file to import into Excel"  %> |
+  <%= link_to "About", home_index_path, :title=>"About the Ranker tool"  %> |
       <% if user_signed_in? %>
-<%= link_to 'Logout (' + current_user.email.split("@").first.to_s + ')', destroy_user_session_path, method: :delete %>
+<%= link_to 'Logout (' + current_user.email.split("@").first.to_s + ')', destroy_user_session_path, method: :delete, :title=>"Logout of the Ranker"  %>
       <% else %>
-<%= link_to 'Login', new_user_session_path %>
+<%= link_to 'Login', new_user_session_path, :title=>"Login into the Ranker to add feedback and upvote feedback"  %>
       <% end %>
 </p>
 
@@ -34,6 +34,7 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
   <tr class="all_table_heading">
     <th></th>    
     <th></th>
+    <th>Product</th>    
     <th>Title</th>
     <th>Text <span class="font-weight-normal small">(click rows for detail)</span></th>
     <th>Email</th>    
@@ -87,19 +88,20 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
 <% end %>
 
        </td>
-      <td id="ptitle"><div class="text-truncate" style="max-width: 300px;" data-title="<%= post.title %>"><%= post.title %></div></td>
-      <td><div class="text-truncate" style="max-width: 250px;" data-text="<%= post.text %>"><%= post.text %></div></td>
-      <td><div class="text-truncate" style="max-width: 100px;"><%= @username %></div></td>
-      <td><div class="text-truncate" style="max-width: 100px;"><%= post.created_at.strftime("%-m/%-d/%y") %></div></td>             
-      <td>
+      <td id="pproduct"><div class="text-truncate" style="max-width: 100px;" data-title="<%= post.product %>" title="<%= post.product %>"><%= post.product %></div></td>
+      <td id="ptitle"><div class="text-truncate" style="max-width: 400px;" data-title="<%= post.title %>" title="<%= post.title %>"><%= post.title %></div></td>
+      <td><div class="text-truncate" style="max-width: 250px;" data-text="<%= post.text %>" title="<%= post.text %>"><%= post.text %></div></td>
+      <td><div class="text-truncate" style="max-width: 75px;"><%= @username %></div></td>
+      <td><div class="text-truncate" style="max-width: 100px;" ><%= post.created_at.strftime("%-m/%-d/%y") %></div></td>             
+      <td><div class="" style="max-width: 200px;">
       
         <%= link_to 'Show', post_path(post) %>
       
         <% if user_signed_in? && post.user_id == current_user.id %>
         | 
-          <%= link_to 'Edit', edit_post_path(post) %>
+          <%= link_to 'Edit', edit_post_path(post), :title=>post.id %>
         <% end %>    
-
+      </div>
       </td>
     </tr>
   <% end %>

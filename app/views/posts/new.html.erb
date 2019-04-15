@@ -24,7 +24,6 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
 <div class="card">
 <div class="card-body m-3">
 
-
   <p>
     <%= form.label :title %><br>
     <%= form.text_field :title, :placeholder => "Title of Post", :class => "form-control", :autofocus => true %>
@@ -35,11 +34,16 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
     <%= form.text_area :text, :placeholder => "More info about Post", :class => "form-control", :rows => 4  %>
   </p>
 
+  <p>
+    <%= form.label :product %><br>
+    <%= form.text_field :product, :placeholder => "Product Area", :class => "form-control" %>
+  </p>  
+
 </div>
 
 
 <div class="card-footer text-muted">
-<%= link_to 'All Posts', posts_path, :class => "align-middle" %>
+<%= link_to 'All Feedback Posts', posts_path, :class => "align-middle" %>
 <%= form.submit "Save", :class=>"btn btn-outline-secondary float-right" %>
 </div>
 

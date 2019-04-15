@@ -14,7 +14,7 @@ class Post < ApplicationRecord
 
   validates :title, length: { minimum:15, :maximum => 255 }
   validates :text, length: { minimum:10, :maximum => 65536 }
-
+  validates :product, length: { minimum:1, :maximum => 255 }
 
   scope :user, -> { joins("INNER JOIN users ON posts.user_id = users.id") }
 
@@ -24,7 +24,7 @@ class Post < ApplicationRecord
     CSV.generate(force_quotes: true) do |csv|
       #csv << column_names
       all.each do |postrow|
-        csv << postrow.attributes.values_at(*["cached_votes_total","email","created_at","title","text"])
+        csv << postrow.attributes.values_at(*["cached_votes_total","email","created_at","title","text","product"])
       end
     end
   end

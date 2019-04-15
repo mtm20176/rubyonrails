@@ -23,6 +23,12 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
 <div class="card-body m-3">
 
 <p>
+  <strong>Product:</strong>
+  <%= @post.product %>
+</p>
+
+
+<p>
   <strong>Title:</strong>
   <%= @post.title %>
 </p>
@@ -35,7 +41,7 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
 </div>
 
 <div class="card-footer text-muted">
-<%= link_to 'All Posts', posts_path %>
+<%= link_to 'All Feedback Posts', posts_path %>
 </div>
 
 </div>

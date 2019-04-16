@@ -9,7 +9,17 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
 
 class PostsController < ApplicationController
 
+
+
 	before_action :authenticate_user!, :except => [:show, :index, :export_posts]
+
+
+	def initialize
+
+		super
+		@products = ["Darwin","DeepNLP","SparkPredict","DeepArmor"]
+
+	end
 
 	def new
 
@@ -69,7 +79,19 @@ class PostsController < ApplicationController
 
 	def export_posts  
 
-		@posts = Post.all.user.select("posts.cached_votes_total, title, text, email, posts.created_at").order("cached_votes_total desc, posts.created_at desc")
+		@posts = Post.all.user.select("posts.cached_votes_total, product, title, text, email, posts.created_at")
+
+		if params[:sort] == "created_at" 
+			@posts = @posts.order("posts.created_at desc")
+		elsif params[:sort] == "email"
+			@posts = @posts.order("users.email asc, posts.created_at desc")
+		elsif params[:sort] == "product"
+			@posts = @posts.order("posts.product asc, posts.created_at desc")			
+		elsif params[:sort] == "votes"
+			@posts = @posts.order("posts.cached_votes_total desc, posts.created_at desc")			
+		else
+			@posts = @posts.order("posts.cached_votes_total desc, posts.created_at desc")
+		end
 
 		respond_to do |format|
 			format.csv { send_data @posts.to_csv }
@@ -111,16 +133,24 @@ class PostsController < ApplicationController
 
 		@posts = Post.all.user.select("posts.id, posts.user_id, title, text, product, users.email, posts.created_at, posts.cached_votes_total")
 
+		@sort = params[:sort]
+
 		if params[:sort] == "created_at" 
 			@posts = @posts.order("posts.created_at desc")
+			@sortname = "(sorted by date)"
 		elsif params[:sort] == "email"
 			@posts = @posts.order("users.email asc")
+			@sortname = "(sorted by user)"
 		elsif params[:sort] == "product"
-			@posts = @posts.order("posts.product asc")			
+			@posts = @posts.order("posts.product asc")	
+			@sortname = "(sorted by product)"		
 		elsif params[:sort] == "votes"
-			@posts = @posts.order("posts.cached_votes_total desc, posts.created_at desc")			
+			@posts = @posts.order("posts.cached_votes_total desc, posts.created_at desc")
+			@sortname = "(sorted by votes)"			
 		else
 			@posts = @posts.order("posts.cached_votes_total desc, posts.created_at desc")
+			@sort = "votes"
+			@sortname = "(sorted by votes)"
 		end
 
 		@posts = @posts.paginate(:page => params[:page], :per_page => 12) 

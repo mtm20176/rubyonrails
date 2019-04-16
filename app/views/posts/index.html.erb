@@ -18,14 +18,20 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
 <div class="col-12 col-md-10">
 
 <h4>Product Field Feedback</h4>
-<p>(sorted by <%= link_to "Votes", posts_path(sort: "votes"), :title=>"Sort by most Upvotes" %> OR <%= link_to "Date Created", posts_path(sort: "created_at"), :title=>"Sort by the latest feedback added"  %> OR <%= link_to "User", posts_path(sort: "email"), :title=>"Sort by user creating the feedback (A-Z)"  %>) <%= link_to 'New', new_post_path, :title=>"Create new feedback"  %> | 
-  <%= link_to "Download", posts_export_posts_path(format: "csv"), :title=>"Download all feedback as a csv file to import into Excel"  %> |
+
+<p>(sort by <%= link_to "Votes", posts_path(sort: "votes"), :title=>"Sort by most Upvotes" %> OR <%= link_to "Product", posts_path(sort: "product"), :title=>"Sort by product" %> OR <%= link_to "Date Created", posts_path(sort: "created_at"), :title=>"Sort by the latest feedback added"  %> OR <%= link_to "User", posts_path(sort: "email"), :title=>"Sort by user creating the feedback (A-Z)"  %>) <%= link_to 'New', new_post_path, :title=>"Create new feedback"  %> | 
+  <%= link_to "Download", posts_export_posts_path(sort: @sort, format: "csv"), :title=>"Download all feedback as a csv file to import into Excel"  %> |
   <%= link_to "About", home_index_path, :title=>"About the Ranker tool"  %> |
       <% if user_signed_in? %>
 <%= link_to 'Logout (' + current_user.email.split("@").first.to_s + ')', destroy_user_session_path, method: :delete, :title=>"Logout of the Ranker"  %>
       <% else %>
 <%= link_to 'Login', new_user_session_path, :title=>"Login into the Ranker to add feedback and upvote feedback"  %>
       <% end %>
+ | <%= link_to 'Admin', admin_index_path, :title=>"Create and edit users"  %>
+
+
+<small><%= @sortname %></small> 
+
 </p>
 
 
@@ -37,7 +43,7 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
     <th>Product</th>    
     <th>Title</th>
     <th>Text <span class="font-weight-normal small">(click rows for detail)</span></th>
-    <th>Email</th>    
+    <th>User</th>    
     <th>Created</th>     
     <th class="text-center">
       <span class="oi oi-wrench" title="Thumbs Up" aria-hidden="true"></span> 

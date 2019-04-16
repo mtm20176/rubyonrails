@@ -6,39 +6,52 @@
 class AdminController < ApplicationController
    
 
-  before_filter :authenticate_user! 
+  before_action :authenticate_user!, :except => [:index]
 
 
   def index
       
       @users = User.select('users.*, (select count(*) from posts where posts.user_id = users.id) as postcount, (select count(*) from votes where votes.voter_id = users.id) as votecount')
       
-      @usertotal = @users.size
-
-      @users = @users.paginate(:page => params[:page], :per_page => 50)     
-
-      @users = @users.order("updated_at desc")
+      @usertotal = @users.size  
 
 
-    end    
+  
+      if params[:sort] == "created_at" 
+        @users = @users.order("users.created_at desc")
+      elsif params[:sort] == "votecount"
+        @users = @users.order("votecount desc")
+      elsif params[:sort] == "postcount"
+        @users = @users.order("postcount desc")     
+      elsif params[:sort] == "az"
+        @users = @users.order("users.email asc")     
+      else
+        @users = @users.order("postcount desc") 
+      end
+  
+
+=begin
+      if params[:sort] == "created_at" 
+        @users = @users.order("users.created_at desc")    
+      else
+        @users = @users.order("votecount desc") 
+      end
+=end
+
+      @users = @users.paginate(:page => params[:page], :per_page => 10)   
 
   end
 
+
   def new
-  
 
-      @user = User.new
-
-
-    end   
+      @user = User.new  
 
   end
 
   def edit
-   
 
       @user = User.find(params[:id])
-
 
   end
 
@@ -63,14 +76,12 @@ class AdminController < ApplicationController
 
     @user = User.find(params[:id])
 
-      if @user.update_attributes(user_params)
-        redirect_to :action => 'index'
-      else
-        makeflash      
-        render action: "edit"
-      end  
-
-    end         
+    if @user.update_attributes(user_params)
+      redirect_to :action => 'index'
+    else
+      makeflash      
+      render action: "edit"
+    end        
 
   end
 
@@ -110,3 +121,4 @@ class AdminController < ApplicationController
   end  
 
 end
+

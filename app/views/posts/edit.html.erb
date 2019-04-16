@@ -34,10 +34,18 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
 
   <p>
     <%= form.label :product %><br>
+
     <% if false %>
+
     <%= form.text_field :product, :placeholder => "Product Area", :class => "typeahead form-control", autocomplete: 'off' %>
+
+    <%= form.select :product, options_for_select([["Darwin","Darwin"],["DeepNLP","DeepNLP"],["SparkPredict","SparkPredict"],["DeepArmor","DeepArmor"]], :selected => [:product, :product]), {}, {:class => "form-control"} %>
+
+    <%= form.select :product, options_for_select(["Darwin","DeepNLP","SparkPredict","DeepArmor"], :selected=>:product), {}, {:class => "form-control"} %>    
+
     <% end %>
-    <%= form.select :product, :options_for_select => ([["Darwin","Darwin"],["DeepNLP","DeepNLP"],["SparkPredict","SparkPredict"],["DeepArmor","DeepArmor"]]), {}, {:class => "form-control"} %>
+
+    <%= form.select :product, @products, {}, {:class => "form-control"} %>
   </p>   
  
   <p>

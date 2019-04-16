@@ -15,6 +15,6 @@ class User < ApplicationRecord
 
 	acts_as_voter
 
-	validates_uniqueness_of :email
+	validates_uniqueness_of :email	
 
 end

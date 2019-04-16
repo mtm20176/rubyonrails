@@ -5,7 +5,11 @@ Unauthorized copying of this file, via any medium is strictly prohibited
 Proprietary and confidential
 Written by Mark Milligan <markmilligan@me.com>, 2019
 
+
+
 <% end %>
+
+
 
 <% content_for :content do %>
 
@@ -17,41 +21,34 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
 
 <div class="col-12 col-md-6">
 
-<h1>New Post</h1>
+<h1>Edit User</h1>
+<p><%= link_to 'All Users', admin_index_path %></p>
 
-<%= form_with scope: :post, url: posts_path, local: true do |form| %>
+<%= form_for @user, url: admin_path(@user) do |form| %>
 
 <div class="card">
 <div class="card-body m-3">
 
   <p>
-    <%= form.label :title %><br>
-    <%= form.text_field :title, :placeholder => "Title of Post", :class => "form-control", :autofocus => true %>
+    <%= form.label :email %><br>
+    <%= form.text_field :email, :placeholder => "User's Email Address", :class => "form-control", :autofocus => true, :autocomplete => 'off' %>
   </p>
  
   <p>
-    <%= form.label :text %><br>
-    <%= form.text_area :text, :placeholder => "More info about Post", :class => "form-control", :rows => 4  %>
+    <%= form.label :encrypted_password %><br>
+    <%= form.text_field :encrypted_password, :placeholder => "User's Password", :class => "form-control"  %>
   </p>
 
-  <p>
-    <%= form.label :product %><br>
-    <%= form.select :product, @products, {}, {:class => "form-control"} %>
-
-  </p>  
-
-</div>
-
+ </div>
 
 <div class="card-footer text-muted">
-<%= link_to 'All Feedback Posts', posts_path, :class => "align-middle" %>
 <%= form.submit "Save", :class=>"btn btn-outline-secondary float-right" %>
 </div>
 
-
-</div>
+</div>  
 
 <% end %>
+
 
 </div>
 

@@ -19,6 +19,7 @@ Rails.application.routes.draw do
 #	get 'posts/export_posts', defaults: { format: :csv }
 
 	resources :posts
+	resources :admin
 
 
 

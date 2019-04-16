@@ -31,7 +31,12 @@ Devise SESSION (Sign In) erb
 </div>
 
 <div class="card-footer text-muted">
+
+Try your email and password: spark1234 to login. Else, contact Mark Milligan</br></br> 
+<%= link_to 'All Feedback Posts', posts_path, :class => "align-middle" %>
+<% if false %>
 Haven't joined yet?<%= link_to "Sign Up", new_user_registration_path, :class=>"btn btn-outline-primary ml-2"  %>
+<% end %>
 </div>
 
 </div>

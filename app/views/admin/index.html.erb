@@ -1,0 +1,106 @@
+<% if false %>
+
+Copyright (C) Mark Milligan - All Rights Reserved
+Unauthorized copying of this file, via any medium is strictly prohibited
+Proprietary and confidential
+Written by Mark Milligan <markmilligan@me.com>, 2019
+
+<% end %>
+
+<% content_for :content do %>
+
+<div class="row"> 
+
+<div class="col">
+
+</div>
+
+<div class="col-12 col-md-10">
+
+<h4>Users</h4>
+
+<p>
+(sort by <%= link_to "Vote Count", admin_index_path(sort: "votecount"), :title=>"Sort by users who voted the most" %> OR <%= link_to "Post Count", admin_index_path(sort: "postcount"), :title=>"Sort by users who posted the most" %> OR <%= link_to "Date Created", admin_index_path(sort: "created_at"), :title=>"Sort by date user was added"  %> OR <%= link_to "A-Z", admin_index_path(sort: "az"), :title=>"Sort by user alphabetical order"  %>) | 
+  <%= link_to 'All Feedback Posts', posts_path %>
+  <% if user_signed_in? && current_user.email == "mmilligan@sparkcognition.com" %>
+  | <%= link_to 'New', new_admin_path, :title=>"Create new user"  %> 
+  <% end %>
+</p>
+
+
+<table class="table table-sm table-hover all_table">
+  <thead>
+  <tr class="all_table_heading">
+    <th>Id</th>    
+    <th>User</th>    
+    <th>Created At</th>
+    <th>Post Count</th>
+    <th>Vote Count</th>        
+    <th class="text-center">
+      <span class="oi oi-wrench" title="Thumbs Up" aria-hidden="true"></span> 
+    </th>
+  </thead>
+  </tr>
+ 
+
+  <tbody>
+  <% @users.each do |user| %>
+
+  <% 
+
+  @username = user.email.split("@").first
+
+  %>
+    <tr class="">
+      
+      <td>
+        <%= user.id %>
+      </td>
+      <td>
+        <%= user.email %>
+       </td>
+
+      <td><div class="text-truncate" style="max-width: 100px;" ><%= user.created_at.strftime("%-m/%-d/%y") %></div></td> 
+
+      <td>
+        <%= user.postcount %>
+       </td>
+      <td>
+        <%= user.votecount %>
+       </td>      
+
+      <td><div class="" style="max-width: 200px;">
+
+          <% if user_signed_in? && current_user.email == "mmilligan@sparkcognition.com" %>
+
+          <%= link_to 'Edit', edit_admin_path(user), :title=>"Edit User" %>
+
+          <% end %>
+
+      </div>
+      </td>
+
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<p></p>
+<%= will_paginate @users %>
+
+
+</div>
+
+<div class="col">
+
+</div>
+
+</div>
+
+<% end %>
+
+<% content_for :bottom do %>
+
+  <%= render "posts/posttext" %>
+
+<% end %>

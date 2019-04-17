@@ -9,7 +9,7 @@ Devise SESSION (Sign In) erb
 
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="field">
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", :placeholder => "Email address", :type => "email", :class => "form-control mt-10 mb-3" %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", :placeholder => "Login", :type => "email", :class => "form-control mt-10 mb-3" %>
   </div>
 
   <div class="field">
@@ -32,9 +32,10 @@ Devise SESSION (Sign In) erb
 
 <div class="card-footer text-muted">
 
+<% if false %>
 Try your email and password: spark1234 to login. Else, contact Mark Milligan</br></br> 
 <%= link_to 'All Feedback Posts', posts_path, :class => "align-middle" %>
-<% if false %>
+
 Haven't joined yet?<%= link_to "Sign Up", new_user_registration_path, :class=>"btn btn-outline-primary ml-2"  %>
 <% end %>
 </div>

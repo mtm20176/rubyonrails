@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_13_232854) do
+ActiveRecord::Schema.define(version: 2019_04_17_134109) do
 
   create_table "posts", force: :cascade do |t|
     t.string "title"
@@ -26,7 +26,11 @@ ActiveRecord::Schema.define(version: 2019_04_13_232854) do
     t.integer "cached_weighted_total", default: 0
     t.float "cached_weighted_average", default: 0.0
     t.string "product"
+    t.string "status", default: "Active"
+    t.text "notes"
+    t.index ["notes"], name: "index_posts_on_notes"
     t.index ["product"], name: "index_posts_on_product"
+    t.index ["status"], name: "index_posts_on_status"
   end
 
   create_table "users", force: :cascade do |t|

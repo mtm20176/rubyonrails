@@ -48,6 +48,15 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
     <%= form.select :product, @products, {}, {:class => "form-control"} %>
   </p>   
  
+ <p>
+    <%= form.select :status, @status, {}, {:class => "form-control"} %>
+  </p>   
+
+  <p>
+    <%= form.label :notes %><br>
+    <%= form.text_area :notes, :placeholder => "Enter Resolution Notes about Post", :class => "form-control", :rows => 4  %>
+  </p>
+
   <p>
     <%= form.submit "Save", :class=>"btn btn-outline-secondary " %>
   </p>

@@ -24,7 +24,7 @@ class Post < ApplicationRecord
     CSV.generate(force_quotes: true) do |csv|
       #csv << column_names
       all.each do |postrow|
-        csv << postrow.attributes.values_at(*["cached_votes_total","product","email","created_at","title","text"])
+        csv << postrow.attributes.values_at(*["cached_votes_total","product","status","email","created_at","title","text"])
       end
     end
   end

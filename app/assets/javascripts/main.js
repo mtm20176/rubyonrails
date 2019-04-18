@@ -35,6 +35,8 @@ function openPostTextModal() {
         $('#post-title').text("Post Title: " + jqueryobject.parent().prev().children()[0].innerText); 
         $('#post-product').text("Product: " + jqueryobject.parent().prev().prev().children()[0].innerText); 
         $('#post-text').text("Post Text: " + jqueryobject[0].innerText);
+        $('#post-author').text("User: " + jqueryobject.parent().next().next().children()[0].innerText); 
+        $('#post-notes').text("Resolution: " + jqueryobject.parent().next().children()[0].innerText); 
 
         $('.modal').modal();
         $('.modal').modal({ keyboard: false });  // initialized with no keyboard

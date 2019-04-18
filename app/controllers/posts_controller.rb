@@ -19,6 +19,8 @@ class PostsController < ApplicationController
 		super
 		@products = ["Darwin","DeepNLP","SparkPredict","DeepArmor"]
 		@status = ["Active","Resolved","Duplicate","Closed/Not Applicable"]
+		@productmanagers = ["sgorti@sparkcognition.com","blares@sparkcognition.com","kmoore@sparkcognition.com","jamrite@sparkcognition.com"]
+		@admin = ["mmilligan@sparkcognition.com"]
 
 	end
 
@@ -46,7 +48,7 @@ class PostsController < ApplicationController
 	end
 
 	def show
-		@post = Post.find(params[:id])
+		@post = Post.find(params[:id])		
 	end
 
 
@@ -60,6 +62,16 @@ class PostsController < ApplicationController
 		@post = Post.find(params[:id])
 	  	#@post.user_id = current_user.id
 
+	  	#logger.info("PARAM title: " + params[:post][:title].to_s)
+		#logger.info("DB title: " + @post.title)
+
+	  	if  ( @productmanagers.include?(current_user.email)) && (params[:post][:title] != @post.title || params[:post][:text] != @post.text || params[:post][:product] != @post.product  ) 
+
+			flash.now[:danger] = "You only have permission to update the Resolution Notes."
+			render action: "edit"
+
+		elsif (@post.user_id == current_user.id || @admin.include?(current_user.email) || @productmanagers.include?(current_user.email)) 
+
 
 		  	if @post.update(post_params)
 
@@ -72,15 +84,42 @@ class PostsController < ApplicationController
 				makeflash
 				render action: "edit"
 			end
+		
+		else
 
+			flash.now[:danger] = "You do not have permission to update the post."
+			redirect_to :action => "index"
 
+		end
 
 	end
 
 
 	def export_posts  
 
-		@posts = Post.all.user.select("posts.cached_votes_total, product, title, text, email, posts.created_at")
+		@posts = Post.user.select("posts.id, posts.user_id, title, text, product, status, notes, users.email, posts.created_at, posts.cached_votes_total")
+
+		if params[:sort] == "all"
+			@posts = @posts.order("posts.status desc,posts.created_at desc")	
+		elsif params[:sort] == "resolved"
+			@posts = @posts.where("status = ?","Resolved").order("posts.status asc, posts.created_at desc")
+		else			
+			@posts = @posts.where("status = ?","Active")
+			if params[:sort] == "created_at" 
+				@posts = @posts.order("posts.created_at desc")
+			elsif params[:sort] == "email"
+				@posts = @posts.order("users.email asc")
+			elsif params[:sort] == "product"
+				@posts = @posts.order("posts.product asc")			
+			elsif params[:sort] == "votes"
+				@posts = @posts.order("posts.cached_votes_total desc, posts.created_at desc")					
+			else
+				@posts = @posts.order("posts.cached_votes_total desc, posts.created_at desc")
+			end
+		end
+
+=begin 
+		@posts = Post.all.user.select("posts.cached_votes_total, product, status, title, text, email, posts.created_at")
 
 		if params[:sort] == "created_at" 
 			@posts = @posts.order("posts.created_at desc")
@@ -89,10 +128,11 @@ class PostsController < ApplicationController
 		elsif params[:sort] == "product"
 			@posts = @posts.order("posts.product asc, posts.created_at desc")			
 		elsif params[:sort] == "votes"
-			@posts = @posts.order("posts.cached_votes_total desc, posts.created_at desc")			
+			@posts = @posts.order("posts.cached_votes_total desc, posts.created_at desc")										
 		else
 			@posts = @posts.order("posts.cached_votes_total desc, posts.created_at desc")
 		end
+=end
 
 		respond_to do |format|
 			format.csv { send_data @posts.to_csv }
@@ -140,7 +180,7 @@ class PostsController < ApplicationController
 			@posts = @posts.order("posts.status desc,posts.created_at desc")
 			@sortname = "(all statuses)"	
 		elsif params[:sort] == "resolved"
-			@posts = @posts.where("status = ?","Resolved").order("posts.created_at desc")
+			@posts = @posts.where("status = ?","Resolved").order("posts.status asc, posts.created_at desc")
 			@sortname = "(resolved status)"
 		else			
 			@posts = @posts.where("status = ?","Active")
@@ -163,7 +203,7 @@ class PostsController < ApplicationController
 			end
 		end
 
-		@posts = @posts.paginate(:page => params[:page], :per_page => 30) 
+		@posts = @posts.paginate(:page => params[:page], :per_page => 50) 
 
 
 	end

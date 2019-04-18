@@ -15,10 +15,10 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
 
 </div>
 
-<div class="col-12 col-md-10">
+<div class="col-12 col-md-11">
 
 <h4>Product Field Feedback</h4>
-
+<p><strong>Important:</strong>  Keep posts professional, positive, and specific. 😊</p>
 <p>(sort by <%= link_to "Resolved", posts_path(sort: "resolved"), :title=>"Filter by Resolved Posts" %> OR <%= link_to "All Statuses", posts_path(sort: "all"), :title=>"No Filter - All Posts" %> OR <%= link_to "Votes", posts_path(sort: "votes"), :title=>"Sort by most Upvotes" %> OR <%= link_to "Product", posts_path(sort: "product"), :title=>"Sort by product" %> OR <%= link_to "Date Created", posts_path(sort: "created_at"), :title=>"Sort by the latest feedback added"  %> OR <%= link_to "User", posts_path(sort: "email"), :title=>"Sort by user creating the feedback (A-Z)"  %>) <%= link_to 'New', new_post_path, :title=>"Create new feedback"  %> | 
   <%= link_to "Download", posts_export_posts_path(sort: @sort, format: "csv"), :title=>"Download all feedback as a csv file to import into Excel"  %> |
   <%= link_to "About", home_index_path, :title=>"About the Ranker tool"  %> |
@@ -39,11 +39,12 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
 <table class="table table-sm table-hover all_table">
   <thead>
   <tr class="all_table_heading">
-    <th></th>    
+    <th>Rank</th>    
     <th></th>
     <th>Product</th>    
     <th>Title</th>
-    <th>Text <span class="font-weight-normal small">(click rows for detail)</span></th>
+    <th>Text <span class="font-weight-normal small">(click text cell for detail)</span></th>
+    <th>PM Resolution</th>     
     <th>User</th>    
     <th>Created</th>  
     <th>Status</th>       
@@ -97,17 +98,18 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
 
        </td>
       <td id="pproduct"><div class="text-truncate" style="max-width: 100px;" data-title="<%= post.product %>" title="<%= post.product %>"><%= post.product %></div></td>
-      <td id="ptitle"><div class="text-truncate" style="max-width: 400px;" data-title="<%= post.title %>" title="<%= post.title %>"><%= post.title %></div></td>
-      <td><div class="text-truncate" style="max-width: 250px;" data-text="<%= post.text %>" title="<%= post.text %>"><%= post.text %></div></td>
+      <td id="ptitle"><div class="text-truncate" style="max-width: 300px;" data-title="<%= post.title %>" title="<%= post.title %>"><%= post.title %></div></td>
+      <td><div class="text-truncate" style="max-width: 200px;" data-text="<%= post.text %>" title="<%= post.text %>"><%= post.text %></div></td>
+      <td><div class="text-truncate" style="max-width: 150px;" data-notes="<%= post.notes %>" title="<%= post.notes %>"><%= post.notes %></div></td>      
       <td><div class="text-truncate" style="max-width: 75px;"><%= @username %></div></td>
       <td><div class="text-truncate" style="max-width: 100px;" ><%= post.created_at.strftime("%-m/%-d/%y") %></div></td><td><div class="text-truncate" style="max-width: 75px;"><%= post.status %></div></td>            
       <td><div class="" style="max-width: 200px;">
       
-        <%= link_to 'Show', post_path(post), :title=>post.id %>
+        <%= link_to 'Show', post_path(post), :title=>"Click to view post details including title, text, product and resolution by product manager. Post Id is " + post.id.to_s %>
       
-        <% if user_signed_in? && ( post.user_id == current_user.id || current_user.email == "mmilligan@sparkcognition.com") %>
+        <% if user_signed_in? && ( post.user_id == current_user.id || @admin.include?(current_user.email) || @productmanagers.include?(current_user.email) ) %>
         | 
-          <%= link_to 'Edit', edit_post_path(post), :title=>post.id %>
+          <%= link_to 'Edit', edit_post_path(post), :title=>"Click to edit post and resolution by product manager. Post Id is " + post.id.to_s %>
         <% end %>    
       </div>
       </td>

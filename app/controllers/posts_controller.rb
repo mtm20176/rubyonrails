@@ -20,6 +20,7 @@ class PostsController < ApplicationController
 		@products = ["Darwin","DeepNLP","SparkPredict","DeepArmor"]
 		@status = ["Active","Resolved","Duplicate","Closed/Not Applicable"]
 		@productmanagers = ["sgorti@sparkcognition.com","blares@sparkcognition.com","kmoore@sparkcognition.com","jamrite@sparkcognition.com"]
+		@leadership = ["amir@sparkcognition.com","ssudarsan@sparkcognition.com"]
 		@admin = ["mmilligan@sparkcognition.com"]
 
 	end
@@ -48,7 +49,16 @@ class PostsController < ApplicationController
 	end
 
 	def show
-		@post = Post.find(params[:id])		
+		#@post = Post.find(params[:id])	
+
+		@posts = Post.user.where("posts.id = ?",params[:id]).select("posts.id, posts.user_id, title, text, product, status, notes, users.email, posts.created_at, posts.cached_votes_total, posts.anonymous")	
+	
+  		@posts.each do |post|
+
+  			@post = post
+
+  		end
+
 	end
 
 
@@ -65,12 +75,12 @@ class PostsController < ApplicationController
 	  	#logger.info("PARAM title: " + params[:post][:title].to_s)
 		#logger.info("DB title: " + @post.title)
 
-	  	if  ( @productmanagers.include?(current_user.email)) && (params[:post][:title] != @post.title || params[:post][:text] != @post.text || params[:post][:product] != @post.product  ) 
+	  	if  ( @productmanagers.include?(current_user.email) || @leadership.include?(current_user.email) ) && (params[:post][:title] != @post.title || params[:post][:text] != @post.text || params[:post][:product] != @post.product  ) 
 
 			flash.now[:danger] = "You only have permission to update the Resolution Notes."
 			render action: "edit"
 
-		elsif (@post.user_id == current_user.id || @admin.include?(current_user.email) || @productmanagers.include?(current_user.email)) 
+		elsif (@post.user_id == current_user.id || @leadership.include?(current_user.email) || @admin.include?(current_user.email) || @productmanagers.include?(current_user.email)) 
 
 
 		  	if @post.update(post_params)
@@ -172,7 +182,7 @@ class PostsController < ApplicationController
 
 	def index
 
-		@posts = Post.user.select("posts.id, posts.user_id, title, text, product, status, notes, users.email, posts.created_at, posts.cached_votes_total")
+		@posts = Post.user.select("posts.id, posts.user_id, title, text, product, status, notes, users.email, posts.created_at, posts.cached_votes_total, anonymous")
 
 		@sort = params[:sort]
 
@@ -195,11 +205,11 @@ class PostsController < ApplicationController
 				@sortname = "(sorted by product)"		
 			elsif params[:sort] == "votes"
 				@posts = @posts.order("posts.cached_votes_total desc, posts.created_at desc")
-				@sortname = "(sorted by votes)"						
+				@sortname = "(sorted by most votes)"						
 			else
 				@posts = @posts.order("posts.cached_votes_total desc, posts.created_at desc")
 				@sort = "votes"
-				@sortname = "(sorted by votes)"
+				@sortname = "(sorted by most votes)"
 			end
 		end
 
@@ -214,7 +224,7 @@ class PostsController < ApplicationController
 private
 
 	def post_params
-		params.require(:post).permit(:title, :text, :product, :status, :notes)
+		params.require(:post).permit(:title, :text, :product, :status, :notes, :anonymous)
 	end
 
 	def makeflash

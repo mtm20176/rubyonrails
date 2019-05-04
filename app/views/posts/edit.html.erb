@@ -48,6 +48,11 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
     <%= form.select :product, @products, {}, {:class => "form-control"} %>
   </p>   
  
+  <p>
+    <%= form.label :anonymous %><br>
+    <%= form.check_box :anonymous, {:class => "checkbox form-control"} %>
+  </p>
+
  <p>
     <%= form.select :status, @status, {}, {:class => "form-control"} %>
   </p>   

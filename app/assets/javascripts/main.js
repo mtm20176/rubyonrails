@@ -15,7 +15,7 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
 
 function openPostTextModal() {
 
-    $(document).on('click', '[data-text]', function(e) {
+    $(document).on('click', '[data-title]', function(e) {
 
 
         var jqueryobject = $(this);
@@ -32,11 +32,15 @@ function openPostTextModal() {
         //console.log(title[0].innerText);
         //console.log(text[0].innerText);
 
-        $('#post-title').text("Post Title: " + jqueryobject.parent().prev().children()[0].innerText); 
-        $('#post-product').text("Product: " + jqueryobject.parent().prev().prev().children()[0].innerText); 
-        $('#post-text').text("Post Text: " + jqueryobject[0].innerText);
-        $('#post-author').text("User: " + jqueryobject.parent().next().next().children()[0].innerText); 
-        $('#post-notes').text("Resolution: " + jqueryobject.parent().next().children()[0].innerText); 
+        $('#post-title').text(jqueryobject[0].innerText); 
+        $('#post-product').text(jqueryobject.parent().prev().children()[0].innerText); 
+        $('#post-text').text(jqueryobject.parent().next()[0].innerText);
+        $('#post-author').text(jqueryobject.parent().next().next().next().children()[0].innerText); 
+        $('#post-notes').text(jqueryobject.parent().next().next().children()[0].innerText); 
+
+        $('#post-votes').text(jqueryobject.parent().prev().prev().prev().children()[0].innerText); 
+        $('#post-created').text(jqueryobject.parent().next().next().next().next().children()[0].innerText); 
+        $('#post-status').text(jqueryobject.parent().next().next().next().next().next().children()[0].innerText); 
 
         $('.modal').modal();
         $('.modal').modal({ keyboard: false });  // initialized with no keyboard

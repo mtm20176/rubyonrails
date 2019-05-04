@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_17_134109) do
+ActiveRecord::Schema.define(version: 2019_05_04_203848) do
 
   create_table "posts", force: :cascade do |t|
     t.string "title"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 2019_04_17_134109) do
     t.string "product"
     t.string "status", default: "Active"
     t.text "notes"
+    t.boolean "anonymous", default: false, null: false
     t.index ["notes"], name: "index_posts_on_notes"
     t.index ["product"], name: "index_posts_on_product"
     t.index ["status"], name: "index_posts_on_status"

@@ -19,7 +19,14 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
 
 <h4>Product Field Feedback</h4>
 <p><strong>Important:</strong>  Keep posts professional, positive, and specific. 😊</p>
-<p>(sort by <%= link_to "Resolved", posts_path(sort: "resolved"), :title=>"Filter by Resolved Posts" %> OR <%= link_to "All Statuses", posts_path(sort: "all"), :title=>"No Filter - All Posts" %> OR <%= link_to "Votes", posts_path(sort: "votes"), :title=>"Sort by most Upvotes" %> OR <%= link_to "Product", posts_path(sort: "product"), :title=>"Sort by product" %> OR <%= link_to "Date Created", posts_path(sort: "created_at"), :title=>"Sort by the latest feedback added"  %> OR <%= link_to "User", posts_path(sort: "email"), :title=>"Sort by user creating the feedback (A-Z)"  %>) <%= link_to 'New', new_post_path, :title=>"Create new feedback"  %> | 
+<p>(filter by <%= link_to "Resolved", posts_path(sort: "resolved"), :title=>"Filter by Resolved Posts" %> OR <%= link_to "All Statuses", posts_path(sort: "all"), :title=>"No Filter - All Posts" %> OR <%= link_to "Most Votes", posts_path(sort: "votes"), :title=>"Sort by most Upvotes" %> OR <%= link_to "Product", posts_path(sort: "product"), :title=>"Sort by product" %>) 
+
+  <% if false %>
+  OR <%= link_to "Date Created", posts_path(sort: "created_at"), :title=>"Sort by the latest feedback added"  %> OR <%= link_to "User", posts_path(sort: "email"), :title=>"Sort by user creating the feedback (A-Z)"  %>) 
+  <% end %>
+  | 
+<%= link_to 'New', new_post_path, :title=>"Create new feedback"  %>
+   | 
   <%= link_to "Download", posts_export_posts_path(sort: @sort, format: "csv"), :title=>"Download all feedback as a csv file to import into Excel"  %> |
   <%= link_to "About", home_index_path, :title=>"About the Ranker tool"  %> |
       <% if user_signed_in? %>
@@ -39,13 +46,13 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
 <table class="table table-sm table-hover all_table">
   <thead>
   <tr class="all_table_heading">
-    <th>Rank</th>    
+    <th style="max-width: 20px;">Rank</th>    
     <th></th>
     <th>Product</th>    
-    <th>Title</th>
-    <th>Text <span class="font-weight-normal small">(click text cell for detail)</span></th>
-    <th>PM Resolution</th>     
-    <th>User</th>    
+    <th>Title <span class="font-weight-normal small">(click cell or Show link to the right for detail)</span></th>
+    <th class="d-none">Text <span class="font-weight-normal small">(click text cell for detail)</span></th>
+    <th class="d-none">PM Resolution</th>     
+    <th class="d-none">Submitter</th>    
     <th>Created</th>  
     <th>Status</th>       
     <th class="text-center">
@@ -65,7 +72,7 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
   %>
     <tr class="">
       
-      <td>
+      <td><div data-votes="<%= post.get_upvotes.size %>" title="The number of upvotes by users.">
         <%= post.get_upvotes.size %>
       </td>
       <td class="voter">
@@ -82,28 +89,38 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
 
 <% end %>
 
-
-
-<% if false %>
-
-<%= link_to "<span class=\"oi oi-action-undo\" aria-hidden=\"true\"></span>".html_safe, '#', :onclick => "unVote(\"" + post.id.to_s + "\"); return false", :title=>"Cancel this vote", :id=>post.id %>
-
-<%= link_to "<span class=\"oi oi-thumb-up\" aria-hidden=\"true\"></span>".html_safe, '#', :onclick => "upVote(\"" + post.id.to_s + "\"); return false", :title=>"Upvote this post", :id=>post.id %>
-
-<%= link_to "<span class=\"oi oi-thumb-down\" aria-hidden=\"true\"></span>".html_safe, '#', :onclick => "downVote(\"" + post.id.to_s + "\"); return false", :title=>"Downvote this post" %>
-
-<% end %>
-
 <% end %>
 
        </td>
-      <td id="pproduct"><div class="text-truncate" style="max-width: 100px;" data-title="<%= post.product %>" title="<%= post.product %>"><%= post.product %></div></td>
-      <td id="ptitle"><div class="text-truncate" style="max-width: 300px;" data-title="<%= post.title %>" title="<%= post.title %>"><%= post.title %></div></td>
-      <td><div class="text-truncate" style="max-width: 200px;" data-text="<%= post.text %>" title="<%= post.text %>"><%= post.text %></div></td>
-      <td><div class="text-truncate" style="max-width: 150px;" data-notes="<%= post.notes %>" title="<%= post.notes %>"><%= post.notes %></div></td>      
-      <td><div class="text-truncate" style="max-width: 75px;"><%= @username %></div></td>
-      <td><div class="text-truncate" style="max-width: 100px;" ><%= post.created_at.strftime("%-m/%-d/%y") %></div></td><td><div class="text-truncate" style="max-width: 75px;"><%= post.status %></div></td>            
-      <td><div class="" style="max-width: 200px;">
+      <td id="pproduct"><div data-title="<%= post.product %>" title="<%= post.product %>"><%= post.product %></div></td>
+      <td id="ptitle"><div class="text-truncate" style="max-width: 600px;" data-title="<%= post.title %>" title="<%= post.title %>"><%= post.title %></div></td>
+      <td class="d-none"><div data-text="<%= post.text %>" title="<%= post.text %>"><%= post.text %></div></td>
+      <td class="d-none"><div data-notes="<%= post.notes %>" title="<%= post.notes %>"><%= post.notes %></div></td>      
+      <td class="d-none"><div>
+
+<% if post.anonymous %>
+
+Anonymous
+
+<% else %>
+
+<%= @username %>
+
+<% end %>        
+
+</div></td>
+
+<% if false %>
+
+      <td><div><%= post.created_at.strftime("%-m/%-d/%y") %></div></td>
+
+<% end %>
+
+      <td><div>
+        <%= time_ago_in_words(post.created_at) %>
+        </div></td>
+      <td><div><%= post.status %></div></td>            
+      <td><div>
       
         <%= link_to 'Show', post_path(post), :title=>"Click to view post details including title, text, product and resolution by product manager. Post Id is " + post.id.to_s %>
       

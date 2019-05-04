@@ -23,16 +23,6 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
 <div class="card-body m-3">
 
 <p>
-  <strong>Product:</strong>
-  <%= @post.product %>
-</p>
-
-<p>
-  <strong>Status:</strong>
-  <%= @post.status %>
-</p>
-
-<p>
   <strong>Title:</strong>
   <%= @post.title %>
 </p>
@@ -45,6 +35,41 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
 <p>
   <strong>Resolution Notes:</strong>
   <%= @post.notes %>
+</p>
+
+<p>
+  <strong>Submitter:</strong>
+
+<% if @post.anonymous %>
+
+  Anonymous
+
+<% else %>
+
+  <%= @post.email.split("@").first %>
+
+<% end %>
+
+</p>
+
+<p>
+  <strong>Product:</strong>
+  <%= @post.product %>
+</p>
+
+<p>
+  <strong>Votes:</strong>
+  <%= @post.cached_votes_total %>
+</p>
+
+<p>
+  <strong>Created:</strong>
+  <%= time_ago_in_words(@post.created_at) %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @post.status %>
 </p>
 
 </div>

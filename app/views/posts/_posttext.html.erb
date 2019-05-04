@@ -11,16 +11,21 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-post-title" id="post-title">Modal title</h5>
+        <h5 class="modal-post-title font-weight-bold" id="post-title">Modal title</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-post-body mx-3 my-3">
-        <p id="post-author"></p>        
-        <p id="post-product"></p>
-        <p id="post-text"></p>
-        <p id="post-notes"></p>                
+
+        <p><span class="font-weight-bold">Text:</span> <span id="post-text"></span></p>
+        <p><span class="font-weight-bold">Resolution:</span> <span id="post-notes"></span></p> 
+        <p><span class="font-weight-bold">Submitter:</span> <span id="post-author"></span></p>        
+        <p><span class="font-weight-bold">Product:</span> <span id="post-product"></span></p>
+        <p><span class="font-weight-bold">Votes:</span> <span id="post-votes"></span></p> 
+        <p><span class="font-weight-bold">Created:</span> <span id="post-created"></span></p>        
+        <p><span class="font-weight-bold">Status:</span> <span id="post-status"></span></p>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -22,9 +22,23 @@ class Post < ApplicationRecord
   # method to convert data to CSV delimited format
   def self.to_csv
     CSV.generate(force_quotes: true) do |csv|
-      #csv << column_names
+
+      csv << ["Votes","Product","Post_Status","Created_At","Post_Title","Post_Text","Post_Resolution"]
       all.each do |postrow|
-        csv << postrow.attributes.values_at(*["cached_votes_total","product","status","email","created_at","title","text"])
+
+        if postrow.anonymous
+          email = "Anonymous"
+        else
+          email = postrow.email.split("@").first
+        end
+
+        created_at = postrow.created_at.strftime('%Y-%m-%d %H:%M:%S')
+
+        csv << [postrow.cached_votes_total, postrow.product, postrow.status, created_at, email, postrow.title, postrow.text, postrow.notes]        
+
+
+        #csv << postrow.attributes.values_at(*["cached_votes_total","product","status","created_at","title","text","notes"])
+      
       end
     end
   end

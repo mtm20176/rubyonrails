@@ -17,7 +17,7 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
 
 <div class="col-12 col-md-10">
 
-<h4>Users</h4>
+<h4><%= link_to "<span class=\"oi oi-home\" aria-hidden=\"true\"></span>".html_safe, posts_path, :title=>"Show most voted posts"%> Users</h4>
 
 <p>
 (sort by <%= link_to "Vote Count", admin_index_path(sort: "votecount"), :title=>"Sort by users who voted the most" %> OR <%= link_to "Post Count", admin_index_path(sort: "postcount"), :title=>"Sort by users who posted the most" %> OR <%= link_to "Date Created", admin_index_path(sort: "created_at"), :title=>"Sort by date user was added"  %> OR <%= link_to "A-Z", admin_index_path(sort: "az"), :title=>"Sort by user alphabetical order"  %>) | 

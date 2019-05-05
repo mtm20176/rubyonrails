@@ -107,7 +107,7 @@ class PostsController < ApplicationController
 
 	def export_posts  
 
-		@posts = Post.user.select("posts.id, posts.user_id, title, text, product, status, notes, users.email, posts.created_at, posts.cached_votes_total")
+		@posts = Post.user.select("posts.id, posts.user_id, title, text, product, status, notes, users.email, posts.created_at, posts.cached_votes_total, posts.notes, posts.anonymous")
 
 		if params[:sort] == "all"
 			@posts = @posts.order("posts.status desc,posts.created_at desc")	
@@ -207,7 +207,8 @@ class PostsController < ApplicationController
 				@posts = @posts.order("posts.cached_votes_total desc, posts.created_at desc")
 				@sortname = "(sorted by most votes)"						
 			else
-				@posts = @posts.order("posts.cached_votes_total desc, posts.created_at desc")
+				@posts = @posts.order("posts.created_at desc")
+				#@posts = @posts.order("posts.cached_votes_total desc, posts.created_at desc")
 				@sort = "votes"
 				@sortname = "(sorted by most votes)"
 			end

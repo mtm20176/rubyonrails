@@ -17,7 +17,7 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
 
 <div class="col-12 col-md-6">
 
-<h1>New Post</h1>
+<h1><%= link_to "<span class=\"oi oi-home\" aria-hidden=\"true\"></span>".html_safe, posts_path, :title=>"Show most voted posts"%> New Post</h1>
 
 <%= form_with scope: :post, url: posts_path, local: true do |form| %>
 
@@ -50,7 +50,7 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
 
 
 <div class="card-footer text-muted">
-<%= link_to 'All Feedback Posts', posts_path, :class => "align-middle" %>
+<%= link_to 'Return to Home', posts_path, :class => "align-middle" %>
 <%= form.submit "Save", :class=>"btn btn-outline-secondary float-right" %>
 </div>
 

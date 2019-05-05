@@ -21,7 +21,7 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
 
 <div class="col-12 col-md-6">
 
-<h1>Edit User</h1>
+<h1><%= link_to "<span class=\"oi oi-home\" aria-hidden=\"true\"></span>".html_safe, posts_path, :title=>"Show most voted posts"%> 	Edit User</h1>
 <p><%= link_to 'All Users', admin_index_path %></p>
 
 <%= form_for @user, url: admin_path(@user) do |form| %>

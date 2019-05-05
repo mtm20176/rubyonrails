@@ -17,7 +17,7 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
 
 <div class="col-12 col-md-6">
 
-<h1>Post Detail</h1>
+<h1><%= link_to "<span class=\"oi oi-home\" aria-hidden=\"true\"></span>".html_safe, posts_path, :title=>"Show most voted posts"%> Post Detail</h1>
 
 <div class="card">
 <div class="card-body m-3">
@@ -75,7 +75,7 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
 </div>
 
 <div class="card-footer text-muted">
-<%= link_to 'All Feedback Posts', posts_path %>
+<%= link_to "Return to Home", posts_path, :title=>"Show most voted posts"%>
 </div>
 
 </div>

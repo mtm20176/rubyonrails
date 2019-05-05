@@ -196,7 +196,7 @@ class PostsController < ApplicationController
 			@posts = @posts.where("status = ?","Active")
 			if params[:sort] == "created_at" 
 				@posts = @posts.order("posts.created_at desc")
-				@sortname = "(sorted by date)"
+				@sortname = "(sorted by most recent)"
 			elsif params[:sort] == "email"
 				@posts = @posts.order("users.email asc")
 				@sortname = "(sorted by user)"
@@ -210,7 +210,7 @@ class PostsController < ApplicationController
 				@posts = @posts.order("posts.created_at desc")
 				#@posts = @posts.order("posts.cached_votes_total desc, posts.created_at desc")
 				@sort = "votes"
-				@sortname = "(sorted by most votes)"
+				@sortname = "(sorted by most recent)"
 			end
 		end
 

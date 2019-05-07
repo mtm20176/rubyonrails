@@ -19,6 +19,7 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
 
 <h4><%= link_to "<span class=\"oi oi-home\" aria-hidden=\"true\"></span>".html_safe, posts_path, :title=>"Show most voted posts"%> Product Field Feedback</h4>
 <p><strong>Important:</strong>  Keep posts professional, positive, and specific. 😊</p>
+<p><span class="text-danger font-weight-bold">*</span> means a product manager has commented. Click post to review.</p>
 <p>( filter/sort by 
 
 <%= link_to "Most Votes", posts_path(sort: "votes"), :title=>"Sort by most Upvotes" %>,
@@ -105,8 +106,17 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
 <% end %>
 
        </td>
+
+
       <td id="pproduct"><div data-title="<%= post.product %>" title="<%= post.product %>"><%= post.product %></div></td>
-      <td id="ptitle"><div class="text-truncate" style="max-width: 600px;" data-title="<%= post.title %>" title="<%= post.title %>"><%= post.title %></div></td>
+      <td id="ptitle"><div class="text-truncate" style="max-width: 600px;" data-title="<%= post.title %>" title="<%= post.title %>"><%= post.title %> 
+
+<% if !post.notes.blank? %>
+  <span class="text-danger font-weight-bold">*</span>
+<% end %>
+
+
+</div></td>
       <td class="d-none"><div data-text="<%= post.text %>" title="<%= post.text %>"><%= post.text %></div></td>
       <td class="d-none"><div data-notes="<%= post.notes %>" title="<%= post.notes %>"><%= post.notes %></div></td>      
       <td class="d-none"><div>

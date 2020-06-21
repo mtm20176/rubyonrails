@@ -76,7 +76,6 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.5)
     crass (1.0.4)
-    demoji (0.0.7)
     devise (4.6.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -216,7 +215,6 @@ DEPENDENCIES
   capybara (>= 2.15)
   chromedriver-helper
   coffee-rails (~> 4.2)
-  demoji
   devise
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
@@ -234,7 +232,7 @@ DEPENDENCIES
   will_paginate
 
 RUBY VERSION
-   ruby 2.6.0p0
+   ruby 2.6.6p146
 
 BUNDLED WITH
    1.17.2

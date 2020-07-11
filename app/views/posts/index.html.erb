@@ -17,9 +17,9 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
 
 <div class="col-12 col-md-11">
 
-<h4><%= link_to "<span class=\"oi oi-home\" aria-hidden=\"true\"></span>".html_safe, posts_path, :title=>"Show most voted posts"%> Product Field Feedback</h4>
+<h4><%= link_to "<span class=\"oi oi-home\" aria-hidden=\"true\"></span>".html_safe, posts_path, :title=>"Show most voted posts"%> Organization Feedback</h4>
 <p><strong>Important:</strong>  Keep posts professional, positive, and specific. 😊</p>
-<p><span class="text-danger font-weight-bold">*</span> means a product manager has commented. Click post to review.</p>
+<p><span class="text-danger font-weight-bold">*</span> means HR or an administrator has commented. Click post to review.</p>
 <p>( filter/sort by 
 
 <%= link_to "Most Votes", posts_path(sort: "votes"), :title=>"Sort by most Upvotes" %>,
@@ -48,7 +48,7 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
       <% else %>
 <%= link_to 'Login to Post', new_user_session_path, :title=>"Login into the Ranker to add feedback and upvote feedback"  %>
       <% end %>
-<% if user_signed_in? && current_user.email == "mmilligan@sparkcognition.com" %>
+<% if user_signed_in? && ADMIN.include?(current_user.email) %>
  | <%= link_to 'Admin', admin_index_path, :title=>"Create and edit users"  %>
 <% end %>
 
@@ -62,10 +62,10 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
   <tr class="all_table_heading">
     <th style="max-width: 20px;">Rank</th>    
     <th></th>
-    <th>Product</th>    
+    <th>Category</th>    
     <th>Title <span class="font-weight-normal small">(click cell or Show link to the right for detail)</span></th>
     <th class="d-none">Text <span class="font-weight-normal small">(click text cell for detail)</span></th>
-    <th class="d-none">PM Resolution</th>     
+    <th class="d-none">Resolution</th>     
     <th class="d-none">Submitter</th>    
     <th>Created</th>  
     <th>Status</th>       
@@ -147,7 +147,7 @@ Anonymous
       
         <%= link_to 'Show', post_path(post), :title=>"Click to view post details including title, text, product and resolution by product manager. Post Id is " + post.id.to_s %>
       
-        <% if user_signed_in? && ( post.user_id == current_user.id || @admin.include?(current_user.email) || @productmanagers.include?(current_user.email) ) %>
+        <% if user_signed_in? && ( post.user_id == current_user.id || ADMIN.include?(current_user.email) || PRODUCTMANAGERS.include?(current_user.email) ) %>
         | 
           <%= link_to 'Edit', edit_post_path(post), :title=>"Click to edit post and resolution by product manager. Post Id is " + post.id.to_s %>
         <% end %>    

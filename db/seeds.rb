@@ -8,181 +8,125 @@
 
 # Create user accounts for SparkCognition sales team
 
+=begin
+
 Post.where("user_id != ?","4").destroy_all
 ActsAsVotable::Vote.where("voter_id != ?","4").destroy_all
-User.where("email != ?","mmilligan@sparkcognition.com").destroy_all
+User.where("email != ?","admin@coder.com").destroy_all
 
-User.create!([{
-  email: "jmcgugan@sparkcognition.com",
-  password: "spark1234",
+=end
+
+
+Post.destroy_all
+ActsAsVotable::Vote.destroy_all
+User.destroy_all
+
+connection = ActiveRecord::Base.connection()
+connection.execute("UPDATE sqlite_sequence SET seq=0 where name='users';")
+connection.execute("UPDATE sqlite_sequence SET seq=0 where name='posts';")
+connection.execute("UPDATE sqlite_sequence SET seq=0 where name='votes';")
+
+User.create!([
+{
+  email: "mark@coder.com",
+  password: "password",
 },
 {
-  email: "bswidler@sparkcognition.com",
-  password: "spark1234",
+  email: "nathan@coder.com",
+  password: "password",
 },
 {
-  email: "rpither@sparkcognition.com",
-  password: "spark1234",
+  email: "chris@coder.com",
+  password: "password",
 },
 {
-  email: "daitzhanov@sparkcognition.com",
-  password: "spark1234",
+  email: "jae@coder.com",
+  password: "password",
 },
 {
-  email: "tboon@sparkcognition.com",
-  password: "spark1234",
+  email: "mat@coder.com",
+  password: "password",
 },
 {
-  email: "ateran@sparkcognition.com",
-  password: "spark1234",
+  email: "emma@coder.com",
+  password: "password",
 },
 {
-  email: "bfreels@sparkcognition.com",
-  password: "spark1234",
+  email: "anna@coder.com",
+  password: "password",
 },
 {
-  email: "cborberg@sparkcognition.com",
-  password: "spark1234",
+  email: "zach@coder.com",
+  password: "password",
 },
 {
-  email: "ideloera@sparkcognition.com",
-  password: "spark1234",
+  email: "tim@coder.com",
+  password: "password",
 },
 {
-  email: "dmarlow@sparkcognition.com",
-  password: "spark1234",
+  email: "admin@coder.com",
+  password: "password",
 },
 {
-  email: "jdesrosier@sparkcognition.com",
-  password: "spark1234",
+  email: "ceo@coder.com",
+  password: "password",
 },
 {
-  email: "rsadakane@sparkcognition.com",
-  password: "spark1234",
-},
-{
-  email: "drocha@sparkcognition.com",
-  password: "spark1234",
-},
-{
-  email: "adingley@sparkcognition.com",
-  password: "spark1234",
-},
-{
-  email: "hkinoshita@sparkcognition.com",
-  password: "spark1234",
-},
-{
-  email: "hkhater@sparkcognition.com",
-  password: "spark1234",
-},
-{
-  email: "mcapotosto@sparkcognition.com",
-  password: "spark1234",
-},
-{
-  email: "aghauche@sparkcognition.com",
-  password: "spark1234",
-},
-{
-  email: "jhamm@sparkcognition.com",
-  password: "spark1234",
-},
-{
-  email: "pherve@sparkcognition.com",
-  password: "spark1234",
-},
-{
-  email: "aerizmendi@sparkcognition.com",
-  password: "spark1234",
-},
-{
-  email: "bmurphy@sparkcognition.com",
-  password: "spark1234",
-},
-{
-  email: "jcanipe@sparkcognition.com",
-  password: "spark1234",
-},
-{
-  email: "kschaerges@sparkcognition.com",
-  password: "spark1234",
-},
-{
-  email: "meadie@sparkcognition.com",
-  password: "spark1234",
-},
-{
-  email: "twhite@sparkcognition.com",
-  password: "spark1234",
-},
-{
-  email: "jfitzgerald@sparkcognition.com",
-  password: "spark1234",
-},
-{
-  email: "bnason@sparkcognition.com",
-  password: "spark1234",
-},
-{
-  email: "dwright@sparkcognition.com",
-  password: "spark1234",
-},
-{
-  email: "ssudarsan@sparkcognition.com",
-  password: "spark1234",
-},
-{
-  email: "ushuja@sparkcognition.com",
-  password: "spark1234",
-},
-{
-  email: "amir@sparkcognition.com",
-  password: "spark1234",
-},
-{
-  email: "kmoore@sparkcognition.com",
-  password: "spark1234",
-},
-{
-  email: "sgorti@sparkcognition.com",
-  password: "spark1234",
-},
-{
-  email: "blares@sparkcognition.com",
-  password: "spark1234",
-},
-{
-  email: "jamrite@sparkcognition.com",
-  password: "spark1234",
-},
-{
-  email: "sgillen@sparkcognition.com",
-  password: "spark1234",
-},
-{
-  email: "rexprintz@sparkcognition.com",
-  password: "spark1234",
-},
-{
-  email: "jeskew@sparkcognition.com",
-  password: "spark1234",
-},
-{
-  email: "mgodard@sparkcognition.com",
-  password: "spark1234",
-},
-{
-  email: "apatel@sparkcognition.com",
-  password: "spark1234",
-},
-{
-  email: "jbrown@sparkcognition.com",
-  password: "spark1234",
-},
-{
-  email: "bspiesman@sparkcognition.com",
-  password: "spark1234",
+  email: "hr@coder.com",
+  password: "password",
 }])
+
+Post.create!([{
+  title: "AHA flavored water please",
+  text: "This new-ish Coca-Cola brand is good, can we get some for the fridge?",
+  user_id: 1,
+  status: "Active",
+  product: "Food and Drinks",
+},
+{
+  title: "Monday or Friday for all-hands - Friday pm please",
+  text: "I think end of the week is a good time for the all hands, to wind down and celebrate our accomplishments.",
+  user_id: 2,
+  status: "Active",
+  product: "Meetings",
+},
+{
+  title: "Waterloo flavored water please",
+  text: "This is an Austin brand, and tastes good. Who wants to support Austin? I do. 💧",
+  user_id: 3,
+  status: "Active",
+  product: "Food and Drinks",
+  notes: "Good idea, we'll add to the selection."
+},
+{
+  title: "QOTD: What is a skill that you have to work hard at to be good?",
+  text: "Sometimes we have to work harder than others just to be ok at something. ",
+  user_id: 4,
+  status: "Active",
+  product: "Culture",
+},
+{
+  title: "QOTD: What is a food you didn't like, but like now?",
+  text: "This is often something you disliked as a kid, and grown to love it as you got older. ",
+  user_id: 5,
+  status: "Active",
+  product: "Culture",
+},
+{
+  title: "QOTD: What's your super power?",
+  text: "Like something you know you're good at, that others may not typically be as good at. ",
+  user_id: 6,
+  status: "Active",
+  product: "Culture",
+},
+{
+  title: "Rename internal customer Slack channels with c in front",
+  text: "Makes it easier to find the channels in the list",
+  user_id: 6,
+  status: "Active",
+  product: "Slack",
+}
+])
  
 p "Created #{User.count} users"
+p "Created #{Post.count} posts"

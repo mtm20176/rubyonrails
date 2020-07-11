@@ -17,11 +17,7 @@ class PostsController < ApplicationController
 	def initialize
 
 		super
-		@products = ["Darwin","DeepNLP","SparkPredict","DeepArmor"]
-		@status = ["Active","Resolved","Duplicate","Closed/Not Applicable"]
-		@productmanagers = ["sgorti@sparkcognition.com","blares@sparkcognition.com","kmoore@sparkcognition.com","jamrite@sparkcognition.com"]
-		@leadership = ["amir@sparkcognition.com","ssudarsan@sparkcognition.com"]
-		@admin = ["mmilligan@sparkcognition.com"]
+
 
 	end
 
@@ -75,13 +71,16 @@ class PostsController < ApplicationController
 	  	#logger.info("PARAM title: " + params[:post][:title].to_s)
 		#logger.info("DB title: " + @post.title)
 
-	  	if  ( @productmanagers.include?(current_user.email) || @leadership.include?(current_user.email) ) && (params[:post][:title] != @post.title || params[:post][:text] != @post.text || params[:post][:product] != @post.product  ) 
+	  	if ( PRODUCTMANAGERS.include?(current_user.email) || LEADERSHIP.include?(current_user.email) ) && (params[:post][:title] != @post.title || params[:post][:text] != @post.text || params[:post][:product] != @post.product  ) 
 
-			flash.now[:danger] = "You only have permission to update the Resolution Notes."
+			flash.now[:danger] = "You only have permission to update the Status and Resolution Notes."
 			render action: "edit"
 
-		elsif (@post.user_id == current_user.id || @leadership.include?(current_user.email) || @admin.include?(current_user.email) || @productmanagers.include?(current_user.email)) 
+			logger.info("hr, leadership and changed wrong fields")
 
+		elsif (@post.user_id == current_user.id || ADMIN.include?(current_user.email) || (  ( PRODUCTMANAGERS.include?(current_user.email) || LEADERSHIP.include?(current_user.email) ) && ( params[:post][:notes] != @post.notes || params[:post][:status] != @post.status ) ) ) 
+
+			logger.info("the user's post, or admin")
 
 		  	if @post.update(post_params)
 
@@ -97,7 +96,9 @@ class PostsController < ApplicationController
 		
 		else
 
-			flash.now[:danger] = "You do not have permission to update the post."
+			logger.info("you don't have permissions")
+
+			flash[:danger] = "You do not have permission to update the post."
 			redirect_to :action => "index"
 
 		end

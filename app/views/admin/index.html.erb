@@ -22,7 +22,8 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
 <p>
 (sort by <%= link_to "Vote Count", admin_index_path(sort: "votecount"), :title=>"Sort by users who voted the most" %> OR <%= link_to "Post Count", admin_index_path(sort: "postcount"), :title=>"Sort by users who posted the most" %> OR <%= link_to "Date Created", admin_index_path(sort: "created_at"), :title=>"Sort by date user was added"  %> OR <%= link_to "A-Z", admin_index_path(sort: "az"), :title=>"Sort by user alphabetical order"  %>) | 
   <%= link_to 'All Feedback Posts', posts_path %>
-  <% if user_signed_in? && current_user.email == "mmilligan@sparkcognition.com" %>
+
+  <% if user_signed_in? && ADMIN.include?(current_user.email) %>
   | <%= link_to 'New', new_admin_path, :title=>"Create new user"  %> 
   <% end %>
 </p>
@@ -71,7 +72,7 @@ Written by Mark Milligan <markmilligan@me.com>, 2019
 
       <td><div class="" style="max-width: 200px;">
 
-          <% if user_signed_in? && current_user.email == "mmilligan@sparkcognition.com" %>
+          <% if user_signed_in? && ADMIN.include?(current_user.email) %>
 
           <%= link_to 'Edit', edit_admin_path(user), :title=>"Edit User" %>
 

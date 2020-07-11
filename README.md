@@ -10,6 +10,10 @@ This Ruby on Rails "RoR" application lets people in an organization to give feed
 
 * SQLite3
 
+* jQuery JavaScript library 3.3.1
+
+* Bootstrap CSS for styling 4.2.1
+
 * Devise gem for authentication
 
 * will_paginate gem to handle split rows returned across pages

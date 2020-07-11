@@ -6,7 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-# Create user accounts for SparkCognition sales team
+# Create user accounts 
 
 =begin
 
@@ -28,51 +28,39 @@ connection.execute("UPDATE sqlite_sequence SET seq=0 where name='votes';")
 
 User.create!([
 {
-  email: "mark@coder.com",
+  email: "ross@friends.com",
   password: "password",
 },
 {
-  email: "nathan@coder.com",
+  email: "rachel@friends.com",
   password: "password",
 },
 {
-  email: "chris@coder.com",
+  email: "chandler@friends.com",
   password: "password",
 },
 {
-  email: "jae@coder.com",
+  email: "joey@friends.com",
   password: "password",
 },
 {
-  email: "mat@coder.com",
+  email: "phoebe@friends.com",
   password: "password",
 },
 {
-  email: "emma@coder.com",
+  email: "monica@friends.com",
   password: "password",
 },
 {
-  email: "anna@coder.com",
+  email: "admin@friends.com",
   password: "password",
 },
 {
-  email: "zach@coder.com",
+  email: "ceo@friends.com",
   password: "password",
 },
 {
-  email: "tim@coder.com",
-  password: "password",
-},
-{
-  email: "admin@coder.com",
-  password: "password",
-},
-{
-  email: "ceo@coder.com",
-  password: "password",
-},
-{
-  email: "hr@coder.com",
+  email: "hr@friends.com",
   password: "password",
 }])
 
@@ -115,14 +103,14 @@ Post.create!([{
 {
   title: "QOTD: What's your super power?",
   text: "Like something you know you're good at, that others may not typically be as good at. ",
-  user_id: 6,
+  user_id: 2,
   status: "Active",
   product: "Culture",
 },
 {
   title: "Rename internal customer Slack channels with c in front",
   text: "Makes it easier to find the channels in the list",
-  user_id: 6,
+  user_id: 5  ,
   status: "Active",
   product: "Slack",
 }

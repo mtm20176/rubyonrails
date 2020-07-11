@@ -1,24 +1,28 @@
-# README
+# Ruby on Rails application
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This Ruby on Rails "RoR" application lets people in an organization to give feedback and rank it using a "thumbs up" approach.
 
-Things you may want to cover:
+###### Languages, frameworks used:
 
-* Ruby version
+* Ruby 2.6.6
 
-* System dependencies
+* Ruby on Rails 5.2.2
 
-* Configuration
+* SQLite3
 
-* Database creation
+* Devise gem for authentication
 
-* Database initialization
+* will_paginate gem to handle split rows returned across pages
 
-* How to run the test suite
+* acts_as_votable gem to up vote a feedback item
 
-* Services (job queues, cache servers, search engines, etc.)
+* 3 relational tables: users, posts, votes
 
-* Deployment instructions
+###### Notes / To run this app after cloning, we recommend:
 
-* ...
+* install rbenv to manage your Ruby environments and install Ruby 2.6.6
+
+* install bundler gem then bundle install the gems specified in the gem file
+
+* ensure Ruby on Rails 5.2.2 is installed locally
+

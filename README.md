@@ -32,7 +32,7 @@ This Ruby on Rails "RoR" application lets people in an organization to give feed
 
 * run the database migrations: rails db:migrate RAILS_ENV=development
 
-* run the seed data including login user names
+* run the seed data including login user names: rails db:seed
 
  ( if you don't run these 2 steps, you'll get an error when launching the rails app )
 
@@ -41,4 +41,6 @@ This Ruby on Rails "RoR" application lets people in an organization to give feed
  ( the binding lets you access the app outside your host )
 
  * If running in a Docker container, make sure you specify the ports in the docker run to setup port forwarding )
+
+ * log in with the username admin@friends.com and password of password
 

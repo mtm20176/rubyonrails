@@ -30,3 +30,15 @@ This Ruby on Rails "RoR" application lets people in an organization to give feed
 
 * ensure Ruby on Rails 5.2.2 is installed locally
 
+* run the database migrations: rails db:migrate RAILS_ENV=development
+
+* run the seed data including login user names
+
+ ( if you don't run these 2 steps, you'll get an error when launching the rails app )
+
+ * launch the app from the app folder: rails s -p 3000 -b 0.0.0.0
+
+ ( the binding lets you access the app outside your host )
+
+ * If running in a Docker container, make sure you specify the ports in the docker run to setup port forwarding )
+

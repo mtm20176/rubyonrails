@@ -22,6 +22,12 @@ This Ruby on Rails "RoR" application lets people in an organization to give feed
 
 * 3 relational tables: users, posts, votes
 
+###### GitLab integration to Coder remote development platform
+<a href="https://demo.cdr.dev/environments/git?org=5e274cb6-8ad3877561fcf4c2c4a95f3e&image=5f0ce011-faad0c18b7a22214443b785b&tag=rubymine_v2&service=gitlab&repo=git@gitlab.com:mtm20176/rubyonrails.git" target="_blank" rel="noopener noreferrer">
+  <img src="https://cdn.coder.com/embed-button.svg" alt="Open in Coder Enterprise" width="263" height="40" />
+</a>
+
+
 ###### Notes / To run this app after cloning, we recommend:
 
 * install rbenv to manage your Ruby environments and install Ruby 2.6.6
@@ -29,6 +35,8 @@ This Ruby on Rails "RoR" application lets people in an organization to give feed
 * install bundler gem then bundle install the gems specified in the gem file
 
 * ensure Ruby on Rails 5.2.2 is installed locally
+
+* install the Ruby gems ( they are not in my git to save space ): bundle install
 
 * run the database migrations: rails db:migrate RAILS_ENV=development
 

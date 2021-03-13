@@ -52,3 +52,7 @@ This Ruby on Rails "RoR" application lets people in an organization to give feed
 
  * log in with the username admin@friends.com and password of password
 
+ * API call #1 to demo in a browser: http://<app host name>/api/get_posts_count.json
+
+ * API call #2 to demo in a browser: http://<app host name>/api/get_posts.json?term=
+

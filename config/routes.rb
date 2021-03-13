@@ -21,7 +21,9 @@ Rails.application.routes.draw do
 	resources :posts
 	resources :admin
 
-
+	# api
+	get 'api/get_posts'
+	get 'api/get_posts_count'
 
 	root 'posts#index'
 #	root 'home#index'

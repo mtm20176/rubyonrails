@@ -50,6 +50,10 @@ gem 'acts_as_votable', '~> 0.12.0'
 
 gem 'seed_dump'
 
+# for rails debugging in VS Code
+gem "ruby-debug-ide"
+gem "debase"
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 

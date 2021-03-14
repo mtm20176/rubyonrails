@@ -40,29 +40,31 @@ This Ruby on Rails "RoR" application lets people in an organization to give feed
 
 ###### Notes / To run this app after cloning, we recommend:
 
-* install rbenv to manage your Ruby environments and install Ruby 2.6.6
+* use an image with Ruby 2.6.6
 
 * install bundler gem then bundle install the gems specified in the gem file
 
-* ensure Ruby on Rails 5.2.2 is installed locally
-
 * install the Ruby gems ( they are not in my git to save space ): bundle install
+
+ ( the following 2 steps may be needed if you get database errors when launching the rails app )
 
 * run the database migrations: rails db:migrate RAILS_ENV=development
 
 * run the seed data including login user names: rails db:seed
 
- ( if you don't run these 2 steps, you'll get an error when launching the rails app )
-
  * launch the app from the app folder: rails s -p 3000 -b 0.0.0.0
 
- ( the binding lets you access the app outside your host )
+ ( the binding lets you access the app outside your localhost )
 
- * If running in a Docker container, make sure you specify the ports in the docker run to setup port forwarding )
+ * If running in a container, make sure you specify the ports in the docker run to setup port forwarding )
 
  * log in with the username admin@friends.com and password of password
 
  * API call #1 to demo in a browser: http://(your app host name)/api/get_posts_count.json
 
  * API call #2 to demo in a browser: http://(your app host name)/api/get_posts.json?term=
+
+ * start debugger command: rdebug-ide --host 0.0.0.0 --port 1234 --dispatcher-port 1234 -- bin/rails s
+
+
 

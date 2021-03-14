@@ -113,16 +113,16 @@ echo "** personalizations **"
 echo "** install net-tools for GUID creation in Rails apps"
 sudo apt-get install net-tools
 
-echo "** bundle my Ruby gems for Rails projects **"
-
-REPO_PATH=$HOME/rubyonrails
-BUNDLE_COMMAND="bundle install"
-
-if [ -d $REPO_PATH ]; then
-    echo "Directory for employee survey Ruby on Rails repo exists."
-    cd $REPO_PATH
-    $BUNDLE_COMMAND
-fi
+#echo "** bundle my Ruby gems for Rails projects **"
+#
+#REPO_PATH=$HOME/rubyonrails
+#BUNDLE_COMMAND="bundle install"
+#
+#if [ -d $REPO_PATH ]; then
+#    echo "Directory for employee survey Ruby on Rails repo exists."
+#    cd $REPO_PATH
+#    $BUNDLE_COMMAND
+#fi
 
 cd "$HOME"
 
@@ -140,4 +140,4 @@ else
 fi
 
 echo "changing shell"
-chsh -s /usr/bin/fish $USER
+sudo chsh -s /usr/bin/fish $USER

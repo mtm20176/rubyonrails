@@ -32,6 +32,10 @@ This Ruby on Rails "RoR" application lets people in an organization to give feed
   <img src="https://cdn.coder.com/embed-button.svg" alt="Open in Coder Enterprise" width="263" height="40" />
 </a>
 
+##### GitHub mark.demo.coder.com Ruby-2-6-6 image
+<a href="https://mark.demo.coder.com/environments/git?org=default&image=604dfbc9-6b0c98d1c2912dd485245068&tag=latest&service=github&repo=git@github.com:mtm20176/rubyonrails.git" target="_blank" rel="noopener noreferrer">
+  <img src="https://cdn.coder.com/embed-button.svg" alt="Open in Coder Enterprise" width="263" height="40" />
+</a>
 
 ###### Notes / To run this app after cloning, we recommend:
 

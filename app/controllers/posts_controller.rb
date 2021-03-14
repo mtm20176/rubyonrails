@@ -185,7 +185,7 @@ class PostsController < ApplicationController
 
 		@posts = Post.user.select("posts.id, posts.user_id, title, text, product, status, notes, users.email, posts.created_at, posts.cached_votes_total, anonymous")
 
-		@sort = params[:sort]
+ 		@sort = params[:sort]
 
 		if params[:sort] == "all"
 			@posts = @posts.order("posts.status desc,posts.created_at desc")

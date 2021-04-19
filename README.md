@@ -28,7 +28,7 @@ This Ruby on Rails "RoR" application lets people in an organization to give feed
 </a>
 
 ##### GitHub mark.demo.coder.com Ruby-2-6-6 image with coder.yaml ( environment-as-code template )
-[![Open in Coder](https://cdn.coder.com/embed-button.svg)](https://mark.demo.coder.com/wac/build?project_oauth_service=github&template_oauth_service=github&project_url=git@github.com:mtm20176/rubyonrails.git&template_url=https://github.com/mtm20176/rubyonrails/.coder/coder.yaml&template_ref=master)
+[![Open in Coder](https://cdn.coder.com/embed-button.svg)](https://mark.demo.coder.com/wac/build?project_oauth_service=github&template_oauth_service=github&project_url=git@github.com:mtm20176/rubyonrails.git&template_url=https://github.com/mtm20176/rubyonrails&template_ref=master)
 
 ##### GitHub mark.demo.coder.com Ruby-2-6-6 image
 <a href="https://mark.demo.coder.com/environments/git?org=default&image=604dfbc9-6b0c98d1c2912dd485245068&tag=latest&service=github&repo=git@github.com:mtm20176/rubyonrails.git" target="_blank" rel="noopener noreferrer">

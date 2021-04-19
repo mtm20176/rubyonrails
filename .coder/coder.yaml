@@ -16,4 +16,4 @@ workspace:
       - name: gem install bundler
         directory: /home/coder/
         shell: /bin/bash
-        command: gem install bundler
+        command: sudo gem install bundler

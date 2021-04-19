@@ -22,18 +22,11 @@ This Ruby on Rails "RoR" application lets people in an organization to give feed
 
 * 3 relational tables: users, posts, votes
 
-###### GitHub demo.cdr.dev Ruby-2-6-6 image
-<a href="https://demo.cdr.dev/environments/git?org=5e274cb6-8ad3877561fcf4c2c4a95f3e&image=604d6a12-39ffa26caa24cf42ac78c1c1&tag=latest&service=github&repo=git@github.com:mtm20176/rubyonrails.git" target="_blank" rel="noopener noreferrer">
-  <img src="https://cdn.coder.com/embed-button.svg" alt="Open in Coder with Ruby-2-6-6 image" width="263" height="40" />
-</a>
+###### GitHub demo.cdr.dev Ruby-2-6-6 image image with coder.yaml ( environment-as-code template )
+[![Open in Coder](https://cdn.coder.com/embed-button.svg)](https://demo.cdr.dev/wac/build?project_oauth_service=github&template_oauth_service=github&project_url=git@github.com:mtm20176/rubyonrails.git&template_url=https://github.com/mtm20176/ruby_wac&template_ref=master)
 
 ##### GitHub mark.demo.coder.com Ruby-2-6-6 image with coder.yaml ( environment-as-code template )
 [![Open in Coder](https://cdn.coder.com/embed-button.svg)](https://mark.demo.coder.com/wac/build?project_oauth_service=github&template_oauth_service=github&project_url=git@github.com:mtm20176/rubyonrails.git&template_url=https://github.com/mtm20176/ruby_wac&template_ref=master)
-
-##### GitHub mark.demo.coder.com Ruby-2-6-6 image
-<a href="https://mark.demo.coder.com/environments/git?org=default&image=604dfbc9-6b0c98d1c2912dd485245068&tag=latest&service=github&repo=git@github.com:mtm20176/rubyonrails.git" target="_blank" rel="noopener noreferrer">
-  <img src="https://cdn.coder.com/embed-button.svg" alt="Open in Coder Enterprise" width="263" height="40" />
-</a>
 
 ###### Notes / To run this app after cloning, we recommend:
 

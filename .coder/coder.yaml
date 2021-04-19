@@ -13,6 +13,7 @@ workspace:
       com.coder.custom.chargeback: "hr"
   configure:
     start:
-      - name: clone rubyonrails repo
+      - name: gem install bundler
         directory: /home/coder/
         shell: /bin/bash
+        command: gem install bundler

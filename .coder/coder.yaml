@@ -4,8 +4,8 @@ workspace:
   spec:
     image: index.docker.io/marktmilligan/ruby-2-6-6
     container-based-vm: false
-    cpu: 1.5
-    memory: 2
+    cpu: 1
+    memory: 1 
     disk: 10
     labels:
       com.coder.custom.railsversion: "5.2.5"

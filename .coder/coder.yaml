@@ -1,0 +1,23 @@
+version: 0.1
+workspace:
+  type: "kubernetes"
+  spec:
+    image: index.docker.io/marktmilligan/ruby-2-6-6
+    container-based-vm: false
+    cpu: 1.5
+    memory: 2
+    disk: 10
+    labels:
+      com.coder.custom.railsversion: "5.2.5"
+      com.coder.custom.rubyversion: "2.6.6"
+      com.coder.custom.chargeback: "hr"
+  configure:
+    start:
+      - name: clone rubyonrails repo
+        directory: /home/coder/
+        shell: /bin/bash
+        command: |
+          ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+          git clone git@github.com:marktmilligan/rubyonrails.git
+          cd rubyonrails/
+          bundle update
